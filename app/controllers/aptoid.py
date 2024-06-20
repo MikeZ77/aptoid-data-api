@@ -1,28 +1,24 @@
+import aiohttp
 import falcon
+import falcon.errors
 from falcon import Request, Response
 
-from app.domain.aptoid import Aptoid
-from app.middleware.validators import validate_get_aptoid
+from app.domain.scraper import ContentScraper
+from app.middleware.validators import validate_url
 from app.utils.logger import logger
-from app.utils.requests import HttpRequests
 
 
 class AptoidResource:
-    def __init__(self):
+    def __init__(self, config: dict[str, str]):
         self.logger = logger
+        self.config = config
 
-    @falcon.before(validate_get_aptoid)
+    @falcon.before(validate_url)
     async def on_get(self, req: Request, resp: Response):
-        Aptoid(HttpRequests())
-        resp.status = falcon.HTTP_200
-        # TODO: use pydantic to convert snake case to camel case
-        resp.media = {
-            "appName": "TestApp",
-            "appVersion": "1.0.0",
-            "appDownloads": 100,
-            "appReleaseDate": "10/20/2023",
-            "appDescription": "This is some description text",
-        }
+        app_url = req.params.get("url")
+        xpath = self.config.get("xpath")
 
-    async def on_post(self, req: Request, resp: Response):
-        resp.status = falcon.HTTP_200
+        async with aiohttp.ClientSession() as session:
+            data = await ContentScraper(xpath, session)(app_url)
+
+        resp.media = data

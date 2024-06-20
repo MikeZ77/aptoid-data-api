@@ -1,0 +1,13 @@
+{   
+    "aptoid": {
+        "domain": "en.aptoide.com",
+        "xpath": {
+            "appName": "(//h1[contains(@class, 'app-informations__Title')])[1]/text()",
+            "appVersion": "(//span[@color='#171717' and contains(@class, 'appview-header__AppViewSpan')])[1]/text()",
+            "appDownloads": "(//span[contains(@class, 'app-informations__AppSpan') and contains(@class, 'app-informations__DetailsMainSpan')])[1]/text()",
+            "appReleaseDate": "(//span[@itemprop='fileSize' and contains(@class, 'appview-header__AppViewSpan')])[1]/text()",
+            "appDescription": "(//div[@itemprop='description']/p[@class='details__Paragraph-sc-rnz8ql-2 emzOuH'])/text()"
+        }
+    }
+}
+

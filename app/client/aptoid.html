@@ -1,57 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aptoide Info</title>
-    <style>
-        body { font-family: Arial, sans-serif; padding: 20px; }
-        #appInfo { margin-top: 20px; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aptoide Info</title>
+  <style>
+      body { font-family: Arial, sans-serif; padding: 20px; }
+      #app-info { margin-top: 20px; }
+      #app-description {
+        display: block;
+        max-width: 40%;
+        word-wrap: break-word;
+      }
+      #app-url {
+        width: 15%;
+    }
+  </style>
 </head>
 <body>
-    <h1>Aptoide App Information</h1>
-    <form id="appForm">
-        <label for="appUrl">Enter Aptoide App URL:</label>
-        <input type="text" id="appUrl" name="appUrl" required>
-        <button type="submit">Submit</button>
-    </form>
+  <h1>Aptoide App Information</h1>
+  <form id="app-form">
+      <label for="app-url">Enter Aptoide App URL:</label>
+      <input type="text" id="app-url" name="app-url" required>
+      <button type="submit">Submit</button>
+  </form>
 
-    <div id="appInfo" style="display:none;">
-        <h2>App Details</h2>
-        <p><strong>Name:</strong> <span id="appName"></span></p>
-        <p><strong>Version:</strong> <span id="appVersion"></span></p>
-        <p><strong>Downloads:</strong> <span id="appDownloads"></span></p>
-        <p><strong>Release Date:</strong> <span id="appReleaseDate"></span></p>
-        <p><strong>Description:</strong> <span id="appDescription"></span></p>
-    </div>
+  <div id="app-info" style="display:none;">
+    <h2>App Details</h2>
+    <p><strong>Name:</strong> <span id="app-name"></span></p>
+    <p><strong>Version:</strong> <span id="app-version"></span></p>
+    <p><strong>Downloads:</strong> <span id="app-downloads"></span></p>
+    <p><strong>Release Date:</strong> <span id="app-release-date"></span></p>
+    <p><strong>Description:</strong> <span id="app-description"></span></p>
+</div>
 
-    <script>
-        document.getElementById('appForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const appUrl = document.getElementById('appUrl').value;
-            // Placeholder for where you would make an API call to your backend
-            // to fetch the app information. This example just uses a static response.
-            fetch('/api/getAppInfo', {
-                method: 'POST', // or 'PUT'
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({url: appUrl}),
-            })
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById('appName').textContent = data.name;
-                document.getElementById('appVersion').textContent = data.version;
-                document.getElementById('appDownloads').textContent = data.downloads;
-                document.getElementById('appReleaseDate').textContent = data.releaseDate;
-                document.getElementById('appDescription').textContent = data.description;
-                document.getElementById('appInfo').style.display = 'block';
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-            });
-        });
-    </script>
+  <script>
+    document.getElementById('app-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const appUrl = document.getElementById('app-url').value;
+      fetch(`/api/v1/aptoid?url=${encodeURI(appUrl)}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      })
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById('app-name').textContent = data.appName;
+        document.getElementById('app-version').textContent = data.appVersion;
+        document.getElementById('app-downloads').textContent = data.appDownloads;
+        document.getElementById('app-release-date').textContent = data.appReleaseDate;
+        document.getElementById('app-description').textContent = data.appDescription;
+        document.getElementById('app-info').style.display = 'block';
+      })
+      .catch((error) => {
+        alert('Error:', error);
+      });
+    });
+  </script>
 </body>
 </html>
