@@ -22,7 +22,7 @@ class ContentScraper:
         html_ele = html.fromstring(html_str)
 
         for name, path in self.xpath.items():
-            self.output[name] = "".join(self._parse_data(path, html_ele))
+            self.output[name] = "\n\n".join(self._parse_data(path, html_ele))
 
         if any(value is None for value in self.output.values()):
             raise HtmlParsingError(self.output)

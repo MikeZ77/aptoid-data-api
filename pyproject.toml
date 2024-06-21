@@ -19,9 +19,13 @@ pytest = "^8.2.1"
 ruff = "^0.4.7"
 debugpy = "^1.8.1"
 mypy = "^1.10.0"
+pytest-asyncio = "^0.23.7"
 
 [tool.ruff.lint]
 unfixable = ["F401"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
 
 [build-system]
 requires = ["poetry-core"]
