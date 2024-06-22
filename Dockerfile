@@ -8,4 +8,4 @@ WORKDIR /src
 COPY . .
 RUN poetry install --no-dev
 
-CMD uvicorn app.main:app
+CMD poetry run uvicorn app.main:app --host 0.0.0.0

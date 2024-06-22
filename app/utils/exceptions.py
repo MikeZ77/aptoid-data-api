@@ -11,9 +11,11 @@ class ValidationError(BaseException): ...
 
 
 class HtmlParsingError(Exception):
-    def __init__(self, message: str, partial_data: dict[str, str | None]):
-        self.message = message
+    def __init__(self, partial_data: dict[str, str]):
         self.partial_data = partial_data
+        self.message = f"""Missing values could not be found in HTML: 
+            {[data for data, value in partial_data.items() if not value]}
+        """
 
 
 class ValidationHandler(ValidationError):

@@ -8,16 +8,17 @@ class ContentScraper:
     def __init__(self, xpath: dict[str, str], session: ClientSession):
         self.session = session
         self.xpath = xpath
-        self.output = {}
+        self.output: dict[str, str] = {}
 
     async def _fetch_content(self, url: str) -> str:
         async with self.session.get(url) as response:
             return await response.text()
 
     def _parse_data(self, path: str, html_ele: html.HtmlElement) -> list[str]:
-        return html_ele.xpath(path)
+        value = html_ele.xpath(path)
+        return value if value else []
 
-    async def __call__(self, url: str):
+    async def __call__(self, url: str) -> dict[str, str]:
         html_str = await self._fetch_content(url)
         html_ele = html.fromstring(html_str)
 

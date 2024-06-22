@@ -40,3 +40,34 @@ async def test_unit_content_scraper_finds_app_name(
 ):
     output = await scrape_aptoid_content(page_data, scrape_configs, "appName")
     assert output == "Dragon City"
+
+
+@pytest.mark.asyncio
+async def test_unit_content_scraper_finds_app_version(
+    page_data: dict[str, str], scrape_configs: dict
+):
+    output = await scrape_aptoid_content(page_data, scrape_configs, "appVersion")
+    assert output == "24.6.0"
+
+
+@pytest.mark.asyncio
+async def test_unit_content_scraper_finds_app_downloads(
+    page_data: dict[str, str], scrape_configs: dict
+):
+    output = await scrape_aptoid_content(page_data, scrape_configs, "appDownloads")
+    assert output == "4M+"
+
+
+@pytest.mark.asyncio
+async def test_unit_content_scraper_finds_app_description(
+    page_data: dict[str, str], scrape_configs: dict
+):
+    output = await scrape_aptoid_content(page_data, scrape_configs, "appDescription")
+    assert (
+        output
+        == "Ready to master one of your favorite dragon games? Download \
+Dragon City Mobile to fight and feed adorable fire-breathing dragons in this epic \
+PvP adventure!\n\nBuild floating islands in Dragon City Mobile, fill it with farms, \
+habitats, buildings…and tons of dragons! Train them up, feed and evolve them into \
+beasts of legends, and become the top Dragon Master in PvP battles full of adventure!"
+    )
