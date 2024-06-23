@@ -20,7 +20,6 @@ make start-docker
 
 ```
 http://127.0.0.1:8000/aptoid.html
-
 GET http://127.0.0.1:8000/api/v1/aptoid?url=https%3A%2F%2Fdragon-city.en.aptoide.com%2Fapp
 ```
 

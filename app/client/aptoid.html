@@ -20,7 +20,8 @@
 <body>
   <form id="app-form">
       <label for="app-url">Enter Aptoide App URL:</label>
-      <input type="text" id="app-url" name="app-url" required>
+      <input type="text" id="app-url" name="app-url" 
+       placeholder="https://dragon-city.en.aptoide.com/app" required>
       <button type="submit">Submit</button>
   </form>
 
@@ -43,7 +44,16 @@
           'Content-Type': 'application/json',
         }
       })
-      .then(response => response.json())
+      .then(response => {
+         if (!response.ok) {
+          response.json().then(error => {
+            alert(error.title + "\n" + (error.description !== undefined ? 
+            error.description : ''));
+          })
+        } else {
+          return response.json()
+        }
+      })
       .then(data => {
         document.getElementById('app-name').textContent = data.appName;
         document.getElementById('app-version').textContent = data.appVersion;
@@ -52,8 +62,8 @@
         document.getElementById('app-description').textContent = data.appDescription;
         document.getElementById('app-info').style.display = 'block';
       })
-      .catch((error) => {
-        alert('Error:', error);
+      .catch(error => {
+        console.error('Error:', error);
       });
     });
   </script>
