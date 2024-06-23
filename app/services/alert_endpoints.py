@@ -8,6 +8,7 @@ from app.utils.logger import logger
 
 
 async def _fetch_content(endpoint: str, xpath: dict[str, str]) -> None:
+    missing_data = None
     try:
         async with aiohttp.ClientSession() as session:
             output = await ContentScraper(xpath, session)(endpoint)

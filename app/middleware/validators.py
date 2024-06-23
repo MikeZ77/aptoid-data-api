@@ -16,6 +16,6 @@ async def validate_url(
     domain = resource.config.domain
 
     if not validators.url(url) or not re.match(
-        rf"https?://[a-zA-Z0-9-]+\.{domain}/.*", url
+        rf"https?://[a-zA-Z0-9-]+\.{domain}/*", url
     ):
         raise ValidationError(f"Please provide a valid url for {domain}.")
