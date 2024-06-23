@@ -7,7 +7,16 @@
             "appDownloads": "(//span[contains(@class, 'app-informations__AppSpan') and contains(@class, 'app-informations__DetailsMainSpan')])[1]/text()",
             "appReleaseDate": "(//span[@itemprop='fileSize' and contains(@class, 'appview-header__AppViewSpan')])[1]/text()",
             "appDescription": "(//div[@itemprop='description']/p[@class='details__Paragraph-sc-rnz8ql-2 emzOuH'])/text()"
-        }
+        },
+        "endpoint_tests": [
+            "https://dragon-city.en.aptoide.com/app",
+            "https://zoom-us-zoom.en.aptoide.com/app",
+            "https://netflix-mobile.en.aptoide.com/app",
+            "https://supercell-brawlstars.en.aptoide.com/app",
+            "https://pubg-mobile-tencent-games.en.aptoide.com/app",
+            "https://zombie-io-potato-shooting.en.aptoide.com/app",
+            "https://mad-gunz.en.aptoide.com/app"
+        ]
     }
 }
 

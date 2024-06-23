@@ -1,4 +1,6 @@
 import logging
+import sys
+from logging import LogRecord
 
 COLORS = {
     "CRITICAL": "\033[95m",
@@ -11,7 +13,7 @@ COLORS = {
 
 
 class ColorFormatter(logging.Formatter):
-    def format(self, record):
+    def format(self, record: LogRecord) -> str:
         levelname = record.levelname
         if levelname in COLORS:
             levelname_color = COLORS[levelname] + levelname + COLORS["RESET"]
@@ -20,9 +22,9 @@ class ColorFormatter(logging.Formatter):
 
 
 logger = logging.getLogger()
-ch = logging.StreamHandler()
-ch.setLevel(logging.DEBUG)
-formatter = ColorFormatter("%(levelname)s:    %(asctime)s - %(name)s - %(message)s")
-ch.setFormatter(formatter)
-
-logger.addHandler(ch)
+logger.setLevel(logging.DEBUG)
+formatter = ColorFormatter("%(levelname)s:     %(asctime)s - %(name)s - %(message)s")
+handler = logging.StreamHandler(sys.stdout)
+handler.setLevel(logging.DEBUG)
+handler.setFormatter(formatter)
+logger.addHandler(handler)

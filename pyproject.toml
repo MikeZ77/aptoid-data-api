@@ -43,6 +43,10 @@ ignore_missing_imports = true
 module = "lxml.*"
 ignore_missing_imports = true
 
+[[tool.mypy.overrides]]
+module = "docker.*"
+ignore_missing_imports = true
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
